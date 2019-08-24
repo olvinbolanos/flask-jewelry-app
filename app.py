@@ -13,10 +13,12 @@ login_manager = LoginManager()
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 app.secret_key = 'reljreljrle STRING' 
+login_manager.login_view = 'user.login'
 login_manager.init_app(app)
 
 @login_manager.user_loader 
 def load_user(userid):
+    print(userid)
     try:
         return models.User.get(models.User.id == userid)
     except models.DoesNotExist:
