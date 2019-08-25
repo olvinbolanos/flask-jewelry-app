@@ -10,16 +10,15 @@ class User(UserMixin, Model):
     username = CharField(unique=True)
     email = CharField(unique=True)
     password = CharField()
-    image = CharField()
 
     class Meta:
         database = DATABASE
 
 class Client(Model):
-    name = CharField()
     owner = CharField()
     price = FloatField()
-    title = CharField()
+    description = CharField()
+    image = CharField()
     user = ForeignKeyField(User, backref="clients")
     created_at = DateTimeField(default=datetime.datetime.now)
 
