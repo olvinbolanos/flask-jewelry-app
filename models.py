@@ -1,7 +1,11 @@
+import os
 from peewee import *
 from flask_login import UserMixin
 import datetime
 
+from playhouse.db_url import connect
+
+DATABASE = connect(os.environ.get('DATABASE_URL'))
 DATABASE = SqliteDatabase('clientsss.sqlite')
 
 
