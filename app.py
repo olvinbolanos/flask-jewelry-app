@@ -4,7 +4,6 @@ from flask_login import LoginManager
 import models  
 
 from api.user import user
-from api.client import client
 from api.api import api
 
 

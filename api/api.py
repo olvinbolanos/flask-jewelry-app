@@ -27,18 +27,6 @@ def save_picture(form_picture):
 
     return picture_name
 
-# @api.route('/', methods=["POST"])
-# def create_clients():
-#     payload = request.get_json()
-#     print(payload, 'payload', type(payload), 'type')
-
-#     client = models.Client.create(**payload, user=1) #I will be changing this to a generated key
-#     print(client.__dict__, ' looking inside the client model', type(client))
-
-#     client_dict = model_to_dict(client)
-
-#     return jsonify(data=client_dict, status={"code": 201, "message": "Success"})
-
 @api.route('/', methods=["POST"])
 def create_clients():
     print(request)
