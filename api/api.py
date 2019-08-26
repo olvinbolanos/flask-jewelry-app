@@ -37,7 +37,7 @@ def create_clients():
     dict_file = pay_file.to_dict()
     file_picture_path = save_picture(dict_file['file'])
     payload['image'] = file_picture_path
-    client = models.Client.create(**payload, user=1) #I will be changing this to a generated key
+    client = models.Client.create(**payload, user = current_user.get_id()) 
     print(client.__dict__, ' looking inside the client Model', type(client))
 
     client_dict = model_to_dict(client)
