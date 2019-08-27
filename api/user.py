@@ -18,7 +18,6 @@ user = Blueprint('users', 'user', url_prefix='/user')
 def register():
     print(request)
     print(type(request))
-    print('working')
     pay_file = request.files
     payload = request.form.to_dict()
 
@@ -75,10 +74,6 @@ def get_user_clients(id):
 @login_required
 def logout():
     """Logout the current user."""
-    # user = current_user
-    # user.authenticated = False
-    # db.session.add(user)
-    # db.session.commit()
     logout_user()
     print('hitting the logout')
     return redirect(url_for("users.login"))
