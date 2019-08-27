@@ -1,6 +1,6 @@
+import os
 import models
 
-import os
 import sys
 import secrets
 from PIL import Image
