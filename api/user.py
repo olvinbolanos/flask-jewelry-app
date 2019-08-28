@@ -1,6 +1,6 @@
+import os
 import models
 
-import os
 import sys
 import secrets
 from PIL import Image
@@ -46,7 +46,8 @@ def register():
 def login():
     payload = request.get_json()
     print(payload, '<-- this is payload')
-
+    email = payload['email']
+    print(email, '<==== in loginRoute')
     try:
         user = models.User.get(models.User.email == payload['email'])
         user_dict = model_to_dict(user)
@@ -76,5 +77,6 @@ def logout():
     """Logout the current user."""
     logout_user()
     print('hitting the logout')
-    return redirect(url_for("users.login"))
+    # return jsonify(data=user_dict, status={"code": 201, "message": "Success"})
+    # return redirect(url_for("users.login"))
     
