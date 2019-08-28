@@ -5,8 +5,8 @@ import datetime
 
 from playhouse.db_url import connect
 
-DATABASE = SqliteDatabase('clientsss.sqlite')
-# DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = SqliteDatabase('clientsss.sqlite')
+DATABASE = connect(os.environ.get('DATABASE_URL'))
 
 class User(UserMixin, Model):
     id = IntegerField(primary_key=True)
@@ -28,9 +28,10 @@ class Client(Model):
     class Meta:
         database = DATABASE
 
-# def initialize():
-#     DATABASE.connect()
-#     DATABASE.create_tables([User, Client], safe=True)
-#     print("TABLES CREATED")
-#     DATABASE.process.env.REACT_APP_BACKEND_URLe()
+def initialize():
+    DATABASE.connect()
+    DATABASE.create_tables([User, Client], safe=True)
+    print("TABLES CREATED")
+    DATABASE.close()
+
 

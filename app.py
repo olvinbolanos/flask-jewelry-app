@@ -27,7 +27,7 @@ def load_user(userid):
 
 CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
 CORS(api, origins=['http://localhost:3000'], supports_credentials=True)
-
+# CORS(dogs_api, origins=["http://localhost:3000", "http://reactaddress.com"], supports_credentials=True)
 app.register_blueprint(user)
 app.register_blueprint(api)
 
@@ -44,13 +44,12 @@ def after_request():
 
 
 @app.route('/') 
-
 def index():
     return 'hi'
     
-# if 'ON_HEROKU' in os.environ:
-#     print('hitting ')
-#     models.initialize()
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
 
 if __name__ == '__main__': 
     models.initialize() 
