@@ -53,7 +53,7 @@ def login():
         user_dict = model_to_dict(user)
         if(check_password_hash(user_dict['password'], payload['password'])):
             del user_dict['password']
-            login_user(user)
+            login_user(user) #this tells my app that the user is logged in
             print(user, '<--- this is user')
 
             return jsonify(data=user_dict, status={"code": 200, "message": "Success"})

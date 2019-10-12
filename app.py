@@ -1,8 +1,8 @@
-import os
 from flask import Flask, g
 from flask_cors import CORS
 from flask_login import LoginManager
-import models  
+import models 
+import os
 
 from api.user import user
 from api.api import api
@@ -25,9 +25,9 @@ def load_user(userid):
     except models.DoesNotExist:
         return None
 
-CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(api, origins=['http://localhost:3000'], supports_credentials=True)
-# CORS(dogs_api, origins=["http://localhost:3000", "http://reactaddress.com"], supports_credentials=True)
+CORS(user, origins=['http://localhost:3000', "https://jewelry-api-heroku.herokuapp.com/"], supports_credentials=True)
+CORS(api, origins=['http://localhost:3000', "https://jewelry-api-heroku.herokuapp.com/"], supports_credentials=True)
+
 app.register_blueprint(user)
 app.register_blueprint(api)
 
