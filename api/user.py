@@ -20,11 +20,12 @@ user = Blueprint('users', 'user', url_prefix='/user')
 def register():
     print(request)
     print(type(request))
+    print('working')
     pay_file = request.files
     payload = request.form.to_dict()
 
     payload["email"].lower()
-    print(payload, '<--- this is user')
+    print(payload, ' <--- this is user')
     
     try:
         models.User.get(models.User.email == payload["email"])        
@@ -55,14 +56,14 @@ def login():
         user_dict = model_to_dict(user)
         if(check_password_hash(user_dict['password'], payload['password'])):
             del user_dict['password']
-<<<<<<< HEAD
+
             login_user(user) #this tells my app that the user is logged in
 =======
             user_dict['authenticated'] = True
             print(db, ' <--- this is db')
             login_user(user, remember=True)
            
->>>>>>> profile
+
             print(user, '<--- this is user')
 
             return jsonify(data=user_dict, status={"code": 200, "message": "Success"})
@@ -84,15 +85,10 @@ def get_user_clients(id):
 @login_required
 def logout():
     """Logout the current user."""
-<<<<<<< HEAD
-=======
     user = current_user
     user.authenticated = False
-    # db.session.add(user)
-    # db.session.commit()
->>>>>>> profile
+
     logout_user()
     print('hitting the logout')
-    # return jsonify(data=user_dict, status={"code": 201, "message": "Success"})
-    # return redirect(url_for("users.login"))
+  
     
