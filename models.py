@@ -2,17 +2,23 @@ import os
 from peewee import *
 from flask_login import UserMixin
 import datetime
+from flask import Flask 
+from flask_sqlalchemy import SQLAlchemy
 
 from playhouse.db_url import connect
 
-# DATABASE = SqliteDatabase('clientsss.sqlite')
-DATABASE = connect(os.environ.get('DATABASE_URL'))
+app = Flask(__name__)
+db = SQLAlchemy(app)
+
+DATABASE = SqliteDatabase('clientsss.sqlite')
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
 
 class User(UserMixin, Model):
     id = IntegerField(primary_key=True)
     username = CharField(unique=True)
     email = CharField(unique=True)
     password = CharField()
+    authenticated =  BooleanField(default=False)
 
     class Meta:
         database = DATABASE

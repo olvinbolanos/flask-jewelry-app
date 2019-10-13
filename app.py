@@ -3,6 +3,7 @@ from flask import Flask, g
 from flask_cors import CORS
 from flask_login import LoginManager
 import models  
+from models import db
 
 from api.user import user
 from api.api import api
@@ -52,7 +53,9 @@ if 'ON_HEROKU' in os.environ:
     models.initialize()
 
 if __name__ == '__main__': 
+    #create table
     models.initialize() 
+    db.init_app(app)
     app.run(debug=DEBUG, port=PORT) 
 
 

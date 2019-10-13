@@ -10,6 +10,8 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import login_user, current_user, login_required
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 from playhouse.shortcuts import model_to_dict
 
 user = Blueprint('users', 'user', url_prefix='/user')
@@ -43,7 +45,7 @@ def register():
 
         return jsonify(data=user_dict, status={"code": 201, "message": "Success"})
 
-@user.route('/login', methods=["POST"])
+@user.route('/login', methods=["GET", "POST"])
 def login():
     payload = request.get_json()
     print(payload, '<-- this is payload')
@@ -54,7 +56,10 @@ def login():
         user_dict = model_to_dict(user)
         if(check_password_hash(user_dict['password'], payload['password'])):
             del user_dict['password']
-            login_user(user)
+            user_dict['authenticated'] = True
+            print(db, ' <--- this is db')
+            login_user(user, remember=True)
+           
             print(user, '<--- this is user')
 
             return jsonify(data=user_dict, status={"code": 200, "message": "Success"})
@@ -76,8 +81,8 @@ def get_user_clients(id):
 @login_required
 def logout():
     """Logout the current user."""
-    # user = current_user
-    # user.authenticated = False
+    user = current_user
+    user.authenticated = False
     # db.session.add(user)
     # db.session.commit()
     logout_user()
