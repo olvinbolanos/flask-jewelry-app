@@ -58,7 +58,6 @@ def login():
             del user_dict['password']
 
             login_user(user) #this tells my app that the user is logged in
-=======
             user_dict['authenticated'] = True
             print(db, ' <--- this is db')
             login_user(user, remember=True)
@@ -86,7 +85,6 @@ def get_user_clients(id):
 def logout():
     """Logout the current user."""
     user = current_user
-    user.authenticated = False
 
     logout_user()
     print('hitting the logout')
