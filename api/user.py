@@ -37,7 +37,8 @@ def register():
 
         login_user(user)
         user_dict = model_to_dict(user)
-
+        user_dict['authenticated'] = True
+        
         print(user_dict)
         print(type(user_dict))
 
@@ -57,10 +58,10 @@ def login():
         if(check_password_hash(user_dict['password'], payload['password'])):
             del user_dict['password']
             user_dict['authenticated'] = True
-            print(db, ' <--- this is db')
+            print(db.session, ' <--- this is db')
             login_user(user, remember=True)
-           
-            print(user, '<--- this is user')
+            # db.session['user_id'] = user.id
+            print(user.id, '<--- this is user')
 
             return jsonify(data=user_dict, status={"code": 200, "message": "Success"})
         else:
@@ -81,12 +82,9 @@ def get_user_clients(id):
 @login_required
 def logout():
     """Logout the current user."""
-    user = current_user
-    user.authenticated = False
-    # db.session.add(user)
-    # db.session.commit()
     logout_user()
     print('hitting the logout')
-    # return jsonify(data=user_dict, status={"code": 201, "message": "Success"})
-    # return redirect(url_for("users.login"))
+    return redirect(url_for('index'))
+
+  
     

@@ -22,6 +22,8 @@ login_manager.init_app(app)
 def load_user(userid):
     print(userid)
     try:
+        print(models.User.id, '<--models.User.id in load_user')
+        print(userid, '<--- userid in load_user')
         return models.User.get(models.User.id == userid)
     except models.DoesNotExist:
         return None
@@ -38,15 +40,15 @@ def before_request():
     g.db = models.DATABASE
     g.db.connect()
 
-
-def after_request():
+@app.after_request
+def after_request(response):
     g.db.close()
     return response
 
 
 @app.route('/') 
 def index():
-    return 'hi'
+    return 'In the App Jewelry Website'
     
 if 'ON_HEROKU' in os.environ:
     print('hitting ')
